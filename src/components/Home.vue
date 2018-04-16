@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 import Header from '@/components/partials/header'
 import SideBar from '@/components/partials/sidebar'
 import CS_Block from '@/components/contents/block'

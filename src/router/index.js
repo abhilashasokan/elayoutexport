@@ -5,7 +5,6 @@ import el_login from '@/components/auth/login/Login'
 import el_register from '@/components/auth/register/Register'
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
