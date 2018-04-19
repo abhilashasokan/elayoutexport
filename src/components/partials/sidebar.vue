@@ -46,43 +46,53 @@
       </a>
     </h6>
     <ul class="nav flex-column mb-2">
-      <li class="nav-item">
-        <a class="nav-link" href="">
+      <li class="nav-item" v-for="availableElement in availableElements">
+        <a class="nav-link" :id="availableElement" :csdata="availableElement" :href="'/#/admin/elements/?type='+availableElement" v-on:click="loadElementData($event)"> 
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          CS:BLOCK
+          CS:{{ availableElement }} 
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          CS:ALIGN
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          CS:DIV
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          CS:UL
-        </a>
-      </li>
+      </li>     
     </ul>
   </div>
 </template>
- 
-<script> 
+<script>
+import axios from "axios";
 export default {
-  name: 'el-header', 
-  data () {
+  name: "el-header",
+  data() {
     return {
-      msg: 'Header Page'
+      msg: "Header Page",
+      availableElements: [],
+    };
+  },
+  created: function() {
+    console.clear();
+    this.getAvailableElements();
+  },
+  methods: {
+    loadElementData: function(event) {
+       var targetId = event.currentTarget.id;
+       console.log(targetId);
+    },
+    getAvailableElements: function() {
+      axios
+        .get("http://elayoutexport.test/api/datamatch/elements/available", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token")
+          }
+        })
+        .then(
+          response => {
+            this.availableElements = JSON.parse(response.data.html);
+          },
+          error => {
+            this.$swal("Invalid data provided");
+          }
+        );
     }
   }
-}
+  
+};
 </script>
 
 

@@ -4,6 +4,8 @@ import el_home from '@/components/home'
 import el_login from '@/components/auth/login/Login'
 import el_register from '@/components/auth/register/Register'
 
+import el_elements from '@/components/contents/elements'
+
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -13,9 +15,16 @@ export default new Router({
       component: el_home
     },
     {
-      path: '/home',
+      path: '/admin',
       name: 'Home',
-      component: el_home
+      component: el_home,
+      children: [
+        {
+          path: 'elements',
+          name: 'elements',
+          component: el_elements
+        }
+      ]
     },
     {
       path: '/login',

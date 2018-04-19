@@ -6,7 +6,7 @@
       	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
       	<app-sidebar></app-sidebar>
       </nav>
-      <app-content></app-content>
+      <app-content></app-content> 
       </div>
     </div>       
   </div>
@@ -16,7 +16,7 @@
 
 import Header from '@/components/partials/header'
 import SideBar from '@/components/partials/sidebar'
-import CS_Block from '@/components/contents/block'
+import CS_Content from '@/components/contents/content'
 export default {
   name: "Home",
   data() {
@@ -27,7 +27,7 @@ export default {
   components: {
 	'app-header': Header,
 	'app-sidebar' : SideBar,	
-	'app-content' : CS_Block
+	'app-content' : CS_Content
 	}
 };
 </script>
